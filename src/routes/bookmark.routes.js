@@ -1,6 +1,7 @@
 const express = require("express")
 
-const BookMarkModel = require("../models/bookmark.model")
+const BookMarkModel = require("../models/bookmark.model");
+const UserModel = require("../models/user.model");
 
 const bookmark = express.Router()
 
@@ -19,13 +20,14 @@ bookmark.get("/",async(req,res)=>{
 })
 
 
-bookmark.get("/",async(req,res)=>{
-    let {ticketId,token} = req.headers;
+bookmark.post("/",async(req,res)=>{
+    let {ticket,token} = req.headers;
     token = token.split(":")
     let email = token[1]
+    console.log(ticket)
     try {
         let user = await UserModel.find({email:email})
-        let data = new BookMarkModel({ticketId:ticketId,userId:user[0].id})
+        let data = new BookMarkModel({ticketId:ticket,userId:user[0].id})
         await data.save()
         res.status(200).send("Added To BookMark") 
     } catch (error) {
