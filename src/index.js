@@ -3,6 +3,7 @@ const dbConnect = require('./config/db')
 const cors = require('cors');
 const user = require('./routes/user.routes');
 const ticket = require('./routes/ticket.routes');
+const bookmark = require('./routes/bookmark.routes');
 const PORT = process.env.PORT || 8080
 const app = express()
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => res.send('Welcome To Ticket System'))
 
 app.use("/user" , user)
 app.use("/ticket" , ticket)
+app.use("/bookmark", bookmark)
 
 
 
