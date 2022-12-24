@@ -21,10 +21,9 @@ bookmark.get("/",async(req,res)=>{
 
 
 bookmark.post("/",async(req,res)=>{
-    let {ticket,token} = req.headers;
+    let {ticket,token} = req.body;
     token = token.split(":")
     let email = token[1]
-    console.log(ticket)
     try {
         let user = await UserModel.find({email:email})
         let data = new BookMarkModel({ticketId:ticket,userId:user[0].id})
